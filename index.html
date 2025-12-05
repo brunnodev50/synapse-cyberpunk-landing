@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYNAPSE GAMING | Nexus Digital</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Configurações Globais e Variáveis --- */
+        :root {
+            --bg-dark: #050508;
+            --bg-panel: #0c0c14;
+            --neon-cyan: #00fff2;
+            --neon-pink: #ff00e6;
+            --neon-purple: #9d00ff;
+            --neon-yellow: #fbff00;
+            --text-primary: #e0e0e0;
+            --font-heading: 'Orbitron', sans-serif;
+            --font-mono: 'Share Tech Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* Scrollbar Personalizada */
+        ::-webkit-scrollbar { width: 8px; background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--neon-purple); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
+        ::selection { background: var(--neon-pink); color: #000; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            overflow-x: hidden;
+            /* Imagem de fundo de alta qualidade de cidade cyberpunk */
+            background: linear-gradient(to bottom, rgba(5,5,8,0.9), rgba(5,5,8,1)), url('https://images.unsplash.com/photo-1592666914723-3710851013a0?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        /* --- Efeitos Especiais (FX) --- */
+        /* Efeito de linhas de varredura CRT */
+        body::after {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.2) 0px, rgba(0,0,0,0.2) 2px, transparent 2px, transparent 4px);
+            pointer-events: none; z-index: 999; opacity: 0.5;
+        }
+
+        /* Animação de Néon instável (Flicker) */
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
+            20%, 24%, 55% { opacity: 0.5; text-shadow: none; }
+        }
+        .neon-flicker { animation: flicker 4s infinite alternate; }
+
+        .text-cyan { color: var(--neon-cyan); text-shadow: 0 0 15px rgba(0, 255, 242, 0.7); }
+        .text-pink { color: var(--neon-pink); text-shadow: 0 0 15px rgba(255, 0, 230, 0.7); }
+
+        /* Efeito de Glitch no Hover */
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); }
+            40% { transform: translate(3px, -3px); clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%); }
+            60% { transform: translate(-3px, 0); }
+            100% { transform: translate(0); }
+        }
+        .glitch-hover:hover { animation: glitch-anim 0.3s linear infinite; color: var(--neon-yellow) !important; }
+
+        /* --- Componentes de UI --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Botão Cyberpunk com canto cortado */
+        .btn-cyber {
+            position: relative;
+            padding: 15px 35px;
+            background: transparent;
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            clip-path: polygon(15% 0, 100% 0, 100% 70%, 85% 100%, 0 100%, 0 30%);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-cyber:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-dark);
+            box-shadow: 0 0 30px var(--neon-cyan);
+            text-shadow: none;
+        }
+        
+        .btn-cyber.pink { border-color: var(--neon-pink); color: var(--neon-pink); }
+        .btn-cyber.pink:hover { background: var(--neon-pink); color: var(--bg-dark); box-shadow: 0 0 30px var(--neon-pink); }
+
+        /* --- Header --- */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 5%; background: rgba(12, 12, 20, 0.9);
+            border-bottom: 1px solid rgba(0, 255, 242, 0.1);
+            backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 100;
+        }
+        .logo { font-family: var(--font-heading); font-size: 2rem; font-weight: 900; letter-spacing: 2px; }
+        nav ul { display: flex; list-style: none; gap: 30px; }
+        nav a { text-decoration: none; color: rgba(255,255,255,0.6); font-family: var(--font-heading); text-transform: uppercase; font-size: 0.9rem; transition: 0.3s; }
+        nav a:hover { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 85vh; display: flex; align-items: center;
+            position: relative; overflow: hidden; padding: 50px 0;
+        }
+        .hero-content { max-width: 800px; z-index: 2; }
+        h1 {
+            font-family: var(--font-heading); font-size: 4.5rem; line-height: 1;
+            margin-bottom: 25px; text-transform: uppercase;
+        }
+        .hero p {
+            font-size: 1.4rem; margin-bottom: 40px; color: #aaa;
+            border-left: 4px solid var(--neon-purple); padding-left: 20px;
+            max-width: 600px;
+        }
+
+        /* --- Sections General --- */
+        section { padding: 100px 0; position: relative; }
+        .section-title {
+            font-family: var(--font-heading); font-size: 3rem; text-align: center;
+            margin-bottom: 70px; text-transform: uppercase; position: relative;
+        }
+        .section-title::after {
+            content: 'SYSTEM_DATA_LOAD';
+            position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%);
+            font-family: var(--font-mono); font-size: 0.9rem; color: var(--neon-purple); opacity: 0.5; letter-spacing: 5px;
+        }
+
+        /* --- Cards Grid (Jogos) --- */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        
+        .game-card {
+            background: var(--bg-panel);
+            border: 1px solid rgba(0, 255, 242, 0.2);
+            position: relative; overflow: hidden;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .game-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 30px rgba(0, 255, 242, 0.2), inset 0 0 20px rgba(0, 255, 242, 0.1);
+            transform: translateY(-5px);
+        }
+        .game-card.pink-accent:hover { border-color: var(--neon-pink); box-shadow: 0 0 30px rgba(255, 0, 230, 0.2); }
+
+        .card-image-container { height: 220px; overflow: hidden; position: relative; }
+        
+        .card-image-container img {
+            width: 100%; height: 100%; object-fit: cover;
+            /* Filtro inicial: monocromático azulado e escuro */
+            filter: grayscale(80%) contrast(1.2) brightness(0.8) hue-rotate(180deg);
+            transition: 0.5s;
+        }
+
+        /* Efeito de "scan" ao passar o mouse na imagem */
+        .game-card:hover .card-image-container img {
+            filter: grayscale(0%) contrast(1.1) brightness(1.1) hue-rotate(0deg);
+            transform: scale(1.1);
+        }
+        
+        .card-content { padding: 25px; position: relative; }
+        /* Linha decorativa brilhante no topo do conteúdo */
+        .card-content::before { content: ''; position: absolute; top: 0; left: 0; width: 50px; height: 3px; background: var(--neon-cyan); transition: 0.5s; }
+        .game-card:hover .card-content::before { width: 100%; }
+
+        .game-title { font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 15px; }
+        .game-meta { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tag {
+            font-size: 0.8rem; padding: 3px 8px; background: rgba(0, 255, 242, 0.1);
+            border: 1px solid var(--neon-cyan); color: var(--neon-cyan); font-family: var(--font-mono);
+        }
+        .price-box {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            font-family: var(--font-heading);
+        }
+        .crypto-price { font-size: 0.9rem; opacity: 0.7; }
+        .fiat-price { font-size: 1.8rem; color: var(--neon-yellow); text-shadow: 0 0 10px rgba(251, 255, 0, 0.5); }
+
+        /* --- Newsletter --- */
+        .newsletter-section {
+            background: linear-gradient(45deg, rgba(157, 0, 255, 0.1), rgba(0, 255, 242, 0.1));
+            border-top: 2px solid var(--neon-purple); border-bottom: 2px solid var(--neon-cyan);
+            text-align: center;
+        }
+        .terminal-input-group {
+            display: flex; justify-content: center; gap: 15px; margin-top: 40px; flex-wrap: wrap;
+        }
+        .terminal-input {
+            background: rgba(0,0,0,0.7); border: 2px solid var(--neon-purple);
+            padding: 15px 25px; font-family: var(--font-mono); color: var(--neon-cyan);
+            font-size: 1.1rem; min-width: 350px; outline: none; transition: 0.3s;
+        }
+        .terminal-input:focus { border-color: var(--neon-cyan); box-shadow: 0 0 20px rgba(0, 255, 242, 0.3); }
+
+        /* --- Footer --- */
+        footer {
+            background: #020203; padding: 50px 20px; text-align: center;
+            font-size: 0.9rem; opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            nav { display: none; } /* Simplificado para mobile */
+            .terminal-input { min-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><span class="text-pink neon-flicker">SYN</span>APSE <span style="font-size: 0.5em; vertical-align: super;">[BETA]</span></div>
+        <nav>
+            <ul>
+                <li><a href="#">Mercado Neural</a></li>
+                <li><a href="#">Exploits</a></li>
+                <li><a href="#">Comunidade Zero</a></li>
+            </ul>
+        </nav>
+        <a href="#" class="btn-cyber" style="padding: 10px 25px; font-size: 0.9rem;">Conectar ID</a>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="glitch-hover">Sua realidade é <br><span class="text-cyan">Entediante.</span> <span class="text-pink">Mude-a.</span></h1>
+            <p>// Acesso direto ao submundo dos games. Títulos indie raros, chaves de acesso antecipado e mods proibidos pelas corporações. Sem DRM. Sem rastreamento.</p>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <a href="#games" class="btn-cyber pink">Navegar no Catálogo</a>
+                <a href="#" class="btn-cyber">Vender Seus Dados</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="games">
+        <div class="container">
+            <h2 class="section-title"><span class="text-cyan">Injeções</span> Recentes</h2>
+            
+            <div class="grid-3">
+                <div class="game-card">
+                    <div class="card-image-container">
+                        <img src="img/ronin-zero.jpg">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title text-cyan">PROJECT: RONIN ZERO</h3>
+                        <div class="game-meta">
+                            <span class="tag">ACTION_RPG</span>
+                            <span class="tag">HACK_SLASH</span>
+                            <span class="tag blink">NEW_KEY</span>
+                        </div>
+                        <div class="price-box">
+                            <div><span class="crypto-price">[ 0.0014 BTC ]</span></div>
+                            <div class="fiat-price">R$ 249,90</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-card pink-accent">
+                     <div class="card-image-container">
+                        <img src="img/SYSTEM_SHOCK_PROTOCOL.png" alt="Sala de servidores escura com luzes neon vermelhas e azuis">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title text-pink">SYSTEM_SHOCK_PROTOCOL</h3>
+                        <div class="game-meta">
+                            <span class="tag" style="border-color: var(--neon-pink); color: var(--neon-pink);">IMMERSIVE_SIM</span>
+                            <span class="tag" style="border-color: var(--neon-pink); color: var(--neon-pink);">HORROR</span>
+                        </div>
+                        <div class="price-box">
+                            <div><span class="crypto-price" style="color: var(--neon-pink)">[ EARLY_ACCESS_BUILD ]</span></div>
+                            <div class="fiat-price" style="color: var(--neon-pink); text-shadow: 0 0 10px rgba(255,0,230,0.5);">R$ 189,00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                     <div class="card-image-container">
+                        <img src="img/neon-overdrive.jpg" alt="Carro esportivo futurista em estrada de néon à noite">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title text-cyan">NEON OVERDRIVE '88</h3>
+                        <div class="game-meta">
+                            <span class="tag">ARCADE_RACING</span>
+                            <span class="tag">SYNTHWAVE</span>
+                        </div>
+                        <div class="price-box">
+                            <div><span class="crypto-price">[ 0.0005 ETH ]</span></div>
+                            <div class="fiat-price">R$ 89,99</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter-section">
+        <div class="container">
+            <h2 class="section-title" style="margin-bottom: 30px; font-size: 2.5rem;">Não perca o próximo <span class="text-pink neon-flicker">glitch.</span></h2>
+            <p style="max-width: 600px; margin: 0 auto; font-size: 1.2rem;">Inscreva seu terminal para receber drops de chaves secretas, vazamentos de dados e ofertas do mercado negro.</p>
+            
+            <div class="terminal-input-group">
+                <input type="email" placeholder="INSIRA_SEU_EMAIL_CORPORATIVO.SYS >_" class="terminal-input">
+                <button class="btn-cyber pink">EXECUTAR INSCRIÇÃO</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo" style="margin-bottom: 20px; font-size: 1.5rem;">SYNAPSE <span class="text-pink">CORP.</span></div>
+        <p>© 2099 Synapse Gaming. Operando nas sombras da Arasaka Tower.</p>
+        <p style="font-family: var(--font-mono); margin-top: 10px; color: var(--neon-cyan);">Conexão segura via protocolo quântico [STATUS: ESTÁVEL]</p>
+    </footer>
+
+</body>
+</html>
