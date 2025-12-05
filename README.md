@@ -7,10 +7,10 @@
 > "High Tech, Low Life."
 
 <div align="center">
-<img width="1681" height="892" alt="tela01" src="https://github.com/user-attachments/assets/47d2914d-9c1e-4590-a6ee-8f32be5d39fd" />
-<img width="1697" height="876" alt="tela02 PNG" src="https://github.com/user-attachments/assets/23ae9c83-f660-4f37-9a3a-3639b7f768c8" />
-<img width="1761" height="876" alt="tela03 PNG" src="https://github.com/user-attachments/assets/6ce622f0-f2c6-4a05-bb67-8ee71c7ea9a9" />
-  
+  <img width="1681" alt="tela01" src="https://github.com/user-attachments/assets/47d2914d-9c1e-4590-a6ee-8f32be5d39fd" />
+  <br>
+  <img width="48%" alt="tela02 PNG" src="https://github.com/user-attachments/assets/23ae9c83-f660-4f37-9a3a-3639b7f768c8" />
+  <img width="48%" alt="tela03 PNG" src="https://github.com/user-attachments/assets/6ce622f0-f2c6-4a05-bb67-8ee71c7ea9a9" />
 </div>
 
 ## 📄 Sobre o Projeto
