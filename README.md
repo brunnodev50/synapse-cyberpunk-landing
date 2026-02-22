@@ -45,4 +45,4 @@ O objetivo foi explorar a estética **Cyberpunk** utilizando apenas HTML5 e CSS3
 
 1. Clone este repositório:
    ```bash
-   git clone [https://github.com/brunnodev50/synapse-cyberpunk-landing.git](https://github.com/brunnodev50/synapse-cyberpunk-landing.git)
+   git clone https://github.com/brunnodev50/synapse-cyberpunk-landing.git
